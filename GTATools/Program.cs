@@ -12,7 +12,7 @@ namespace GTATools
         /// </summary>
         [STAThread]
         static void Main()
-        {
+        {            
             if (Process.GetProcessesByName("GTA5").FirstOrDefault() == null)
             {
                 MessageBox.Show("GTA must be running to run this Software!");
@@ -25,7 +25,7 @@ namespace GTATools
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }

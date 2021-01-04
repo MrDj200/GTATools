@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace GTATools
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -101,7 +101,7 @@ namespace GTATools
             this.Controls.Add(this.SuspendButton);
             this.Name = "Form1";
             this.Text = "Dj\'s GTA Tools";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
