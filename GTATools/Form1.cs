@@ -17,8 +17,6 @@ namespace GTATools
         {
             InitializeComponent();
 
-            numericUpDown1.Value = Properties.Settings.Default.SuspendTimer; // Loading from settings
-
             _lagThread = new Thread(LagSwitchLoop);
             _lagThread.Start();
 
@@ -34,17 +32,33 @@ namespace GTATools
                 MessageBox.Show("The GTA Process was not found! Is GTA running?");
                 return;
             }
-            int time = Convert.ToInt32(Math.Round(numericUpDown1.Value, 0));
-            var shit = Task.Factory.StartNew(() => _gtaProc.SuspendFor(time));
+            int time = numericUpDown1.AsInt();
+            Task.Factory.StartNew(() => _gtaProc.SuspendFor(time));
 
             Properties.Settings.Default.SuspendTimer = time; // Updating settings file
-            Properties.Settings.Default.Save(); 
+            Properties.Settings.Default.Save();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // Loading from settings
+            this.numericUpDown1.Value = Properties.Settings.Default.SuspendTimer;
+            this.Location = Properties.Settings.Default.F1Location;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Properties.Settings.Default.SuspendTimer = this.numericUpDown1.AsInt();
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.F1Location = this.Location;
+            }
+            Properties.Settings.Default.Save();
+
+
             _lagThread?.Abort(); // Closing lagswitch thread
             fw?.Unblock(); // Removing firewall rule
         }
+
     }
 }

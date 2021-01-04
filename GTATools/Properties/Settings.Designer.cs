@@ -34,5 +34,17 @@ namespace GTATools.Properties {
                 this["SuspendTimer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point F1Location {
+            get {
+                return ((global::System.Drawing.Point)(this["F1Location"]));
+            }
+            set {
+                this["F1Location"] = value;
+            }
+        }
     }
 }

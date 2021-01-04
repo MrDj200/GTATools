@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace GTATools
 {
-    class Utils
+    static class Utils
     {
         public static bool IsAdministrator() => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
@@ -29,5 +29,7 @@ namespace GTATools
                 MessageBox.Show("Sorry, this application must be run as Administrator.");
             }
         }
+
+        public static int AsInt(this NumericUpDown num) => Convert.ToInt32(Math.Round(num.Value, 0));
     }
 }
