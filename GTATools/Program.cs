@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace GTATools
@@ -12,6 +11,11 @@ namespace GTATools
         [STAThread]
         static void Main()
         {
+            if (!Utils.IsAdministrator())
+            {
+                Utils.MakeAdmin();
+                return;
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
