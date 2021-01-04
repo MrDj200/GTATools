@@ -1,4 +1,6 @@
 ﻿
+using System.Threading;
+
 namespace GTATools
 {
     partial class Form1
@@ -112,6 +114,45 @@ namespace GTATools
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButton1;
+
+        private void LagSwitchLoop()
+        {
+            bool state = KeyStates.ScrollLock;
+            while (true)
+            {
+                if (KeyStates.ScrollLock && !state)
+                {
+                    fw.Block();
+                    state = KeyStates.ScrollLock;
+                    ChangeStateSafe(state);
+                }
+                else if (!KeyStates.ScrollLock && state)
+                {
+                    fw.Unblock();
+                    state = KeyStates.ScrollLock;
+                    ChangeStateSafe(state);
+                }
+                Thread.Sleep(100);
+            }
+        }
+
+        #region Thread Safe BTN stuff
+
+        private delegate void SafeCallDelegate(bool state);
+
+        private void ChangeStateSafe(bool state)
+        {
+            if (radioButton1.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(ChangeStateSafe);
+                radioButton1.Invoke(d, new object[] { state });
+            }
+            else
+            {
+                radioButton1.Checked = state;
+            }
+        }
+        #endregion
     }
 }
 
