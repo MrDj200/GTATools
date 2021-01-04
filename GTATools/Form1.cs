@@ -60,5 +60,18 @@ namespace GTATools
             fw?.Unblock(); // Removing firewall rule
         }
 
+        private void killGameButton_Click(object sender, EventArgs e)
+        {
+            if (!checkBox1.Checked)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to kill the game?", "Are you sure?", MessageBoxButtons.YesNo);
+                if (dialogResult != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+            _gtaProc?.Kill();
+            checkBox1.Checked = false;
+        }
     }
 }

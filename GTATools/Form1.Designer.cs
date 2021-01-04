@@ -37,6 +37,8 @@ namespace GTATools
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.killGameButton = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,11 +92,32 @@ namespace GTATools
             this.radioButton1.TabIndex = 6;
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
+            // killGameButton
+            // 
+            this.killGameButton.Location = new System.Drawing.Point(148, 51);
+            this.killGameButton.Name = "killGameButton";
+            this.killGameButton.Size = new System.Drawing.Size(91, 23);
+            this.killGameButton.TabIndex = 7;
+            this.killGameButton.Text = "Kill Game";
+            this.killGameButton.UseVisualStyleBackColor = true;
+            this.killGameButton.Click += new System.EventHandler(this.killGameButton_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(127, 56);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 150);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.killGameButton);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numericUpDown1);
@@ -159,6 +182,9 @@ namespace GTATools
             }
         }
         #endregion
+
+        private System.Windows.Forms.Button killGameButton;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
