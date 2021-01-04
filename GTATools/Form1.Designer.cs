@@ -54,9 +54,9 @@ namespace GTATools
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = " Suspend for";
+            this.label1.Text = "Suspend for";
             // 
             // numericUpDown1
             // 
@@ -89,7 +89,7 @@ namespace GTATools
             this.radioButton1.TabIndex = 6;
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,7 +99,7 @@ namespace GTATools
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SuspendButton);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Dj\'s GTA Tools";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
