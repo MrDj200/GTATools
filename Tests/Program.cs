@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Windows.Input;
+using System.Threading.Tasks;
+using WindowsInput;
+using WindowsInput.Events;
 
 namespace Tests
 {
@@ -8,10 +10,8 @@ namespace Tests
         [STAThread]
         static void Main(string[] args)
         {
-            while (true)
-            {
-                Console.WriteLine(Keyboard.IsKeyToggled(Key.A));
-            }
+            Task.Delay(1000).Wait();
+            Simulate.Events().Hold(KeyCode.S).Wait(1000).Release(KeyCode.S).Invoke().Wait();
             Console.ReadLine();
         }
     }

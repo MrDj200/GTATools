@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsInput;
+using WindowsInput.Events;
 
 namespace GTATools
 {
@@ -237,14 +238,13 @@ namespace GTATools
                 });
             }            
         }
-
-        [STAThread]
+                
         private async void WheelSpinLoop()
         {            
-            var mainWheelspinToken = new CancellationTokenSource();
+            var mainWheelspin = new CancellationTokenSource();
             CancellationTokenSource curWheelSpin = null;
             bool state = KeyStates.WheelspinHotkey;
-            while (!mainWheelspinToken.IsCancellationRequested)
+            while (!mainWheelspin.IsCancellationRequested)
             {
                 bool curState = KeyStates.WheelspinHotkey;
                 if (curState != state) // Key Pressed
@@ -253,17 +253,45 @@ namespace GTATools
                     {
                         curWheelSpin = new CancellationTokenSource();
                         _ = Task.Run(() => fuck(curWheelSpin.Token), curWheelSpin.Token);
+                        //_ = Task.Run(() => test(curWheelSpin.Token), curWheelSpin.Token);
                     }
                     else // If it was just disabled
                     {
                         curWheelSpin?.Cancel();
+                        radioButton2.Invoke((Action)delegate
+                        {
+                            radioButton2.Checked = false;
+                        });
                     }                    
                 }
                 state = curState;
                 await Task.Delay(10);
             }
             curWheelSpin?.Dispose();
-            mainWheelspinToken.Dispose();
+            mainWheelspin?.Dispose();
+        }
+
+        private async Task test(CancellationToken token)
+        {
+            try
+            {
+                radioButton2.Invoke((Action)delegate
+                {
+                    radioButton2.Checked = true;
+                });
+                if (!token.IsCancellationRequested)
+                {
+                    await Task.Delay(10);
+                    await WindowsInput.Simulate.Events().Click(KeyCode.Return).Invoke().ConfigureAwait(true);
+                    MessageBox.Show("Reeeeeee");
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
         }
 
         private async Task fuck(CancellationToken token)
@@ -273,12 +301,9 @@ namespace GTATools
                 radioButton2.Checked = true;
             });
 
-            var inputSim = new InputSimulator();
             if (!token.IsCancellationRequested)
             {
-                inputSim.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.RETURN);
-                await Task.Delay(100);
-                inputSim.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.RETURN);
+                await WindowsInput.Simulate.Events().Hold(KeyCode.Return).Wait(100).Release(KeyCode.Return).Invoke();
 
                 while (Utils.GetColorAt(new System.Drawing.Point(x: 90, y: 40)).ToHex() != "#E5E5E5")
                 {
@@ -292,10 +317,13 @@ namespace GTATools
                         return;
                     }
                 }
-                await Task.Delay(Properties.Settings.Default.WheelspinDelay);
-                inputSim.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_S);
-                await Task.Delay(100);
-                inputSim.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.VK_S);
+                //await Task.Delay(Properties.Settings.Default.WheelspinDelay);
+
+                await WindowsInput.Simulate.Events().Wait(Properties.Settings.Default.WheelspinDelay).Hold(KeyCode.S).Wait(100).Release(KeyCode.S).Invoke();
+
+                //inputSim.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_S);
+                //await Task.Delay(100);
+                //inputSim.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.VK_S);
             }
             radioButton2.Invoke((Action)delegate
             {
