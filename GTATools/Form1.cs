@@ -11,14 +11,33 @@ namespace GTATools
     public partial class MainForm : Form
     {
         private readonly Thread _lagThread = null;
+        private readonly Thread _colorThread = null;
+        private readonly Task _wheelspinTask = null;
         private readonly FirewallRule fw = null;
-        readonly Process _gtaProc = Process.GetProcessesByName("GTA5").FirstOrDefault();
+        //readonly Process _gtaProc = Process.GetProcessesByName("GTA5").FirstOrDefault();
+        private Process temp = null;
+        public Process _gtaProc
+        { 
+            get
+            {
+                if (temp == null)
+                {
+                    return Process.GetProcessesByName("GTA5").FirstOrDefault();
+                }
+                return temp;
+            } 
+        }
         public MainForm()
         {
             InitializeComponent();
 
             _lagThread = new Thread(LagSwitchLoop);
             _lagThread.Start();
+
+            _colorThread = new Thread(ColorLoop);
+            _colorThread.Start();
+
+            _wheelspinTask = Task.Factory.StartNew(() => WheelSpinLoop());
 
             fw = new FirewallRule(_gtaProc.MainModule.FileName);
         }
@@ -43,7 +62,9 @@ namespace GTATools
         {
             // Loading from settings
             this.numericUpDown1.Value = Properties.Settings.Default.SuspendTimer;
-            this.Location = Properties.Settings.Default.F1Location;
+            this.Location = Properties.Settings.Default.FormLocation;
+            this.textBox1.Text = Properties.Settings.Default.WheelspinKey.ToString();
+            this.numericUpDown2.Value = Properties.Settings.Default.WheelspinDelay;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -51,12 +72,13 @@ namespace GTATools
             Properties.Settings.Default.SuspendTimer = this.numericUpDown1.AsInt();
             if (this.WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.F1Location = this.Location;
+                Properties.Settings.Default.FormLocation = this.Location;
             }
             Properties.Settings.Default.Save();
 
 
             _lagThread?.Abort(); // Closing lagswitch thread
+            _colorThread?.Abort();
             fw?.Unblock(); // Removing firewall rule
         }
 
@@ -72,6 +94,28 @@ namespace GTATools
             }
             _gtaProc?.Kill();
             checkBox1.Checked = false;
+        }
+
+        // Wheelspin hotkey textbox stuff
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                e.Handled = true;
+                label3.Focus();
+                return;                
+            }
+            textBox1.Text = e.KeyCode.ToString();
+            label3.Focus();
+            e.Handled = true;
+            Properties.Settings.Default.WheelspinKey = e.KeyCode;
+            Properties.Settings.Default.Save();
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.WheelspinDelay = (int) numericUpDown2.Value;
+            Properties.Settings.Default.Save();
         }
     }
 }

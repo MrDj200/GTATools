@@ -38,12 +38,36 @@ namespace GTATools.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point F1Location {
+        public global::System.Drawing.Point FormLocation {
             get {
-                return ((global::System.Drawing.Point)(this["F1Location"]));
+                return ((global::System.Drawing.Point)(this["FormLocation"]));
             }
             set {
-                this["F1Location"] = value;
+                this["FormLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PgUp")]
+        public global::System.Windows.Forms.Keys WheelspinKey {
+            get {
+                return ((global::System.Windows.Forms.Keys)(this["WheelspinKey"]));
+            }
+            set {
+                this["WheelspinKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4000")]
+        public int WheelspinDelay {
+            get {
+                return ((int)(this["WheelspinDelay"]));
+            }
+            set {
+                this["WheelspinDelay"] = value;
             }
         }
     }

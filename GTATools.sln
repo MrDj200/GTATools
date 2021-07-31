@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTATools", "GTATools\GTAToo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7CB457B1-1944-4F10-A075-73A1D67708F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateMatching", "TemplateMatching\TemplateMatching.csproj", "{D5938A1F-A314-4F54-A96F-7DEA04E70215}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7CB457B1-1944-4F10-A075-73A1D67708F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CB457B1-1944-4F10-A075-73A1D67708F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CB457B1-1944-4F10-A075-73A1D67708F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5938A1F-A314-4F54-A96F-7DEA04E70215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5938A1F-A314-4F54-A96F-7DEA04E70215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5938A1F-A314-4F54-A96F-7DEA04E70215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5938A1F-A314-4F54-A96F-7DEA04E70215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

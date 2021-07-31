@@ -1,5 +1,10 @@
 ﻿
+using System;
+using System.Drawing;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using WindowsInput;
 
 namespace GTATools
 {
@@ -39,7 +44,13 @@ namespace GTATools
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.killGameButton = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxClr = new System.Windows.Forms.TextBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // SuspendButton
@@ -111,11 +122,80 @@ namespace GTATools
             this.checkBox1.TabIndex = 8;
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Location = new System.Drawing.Point(85, 95);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDown2.TabIndex = 9;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 97);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Wheelspin";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(168, 94);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(71, 20);
+            this.textBox1.TabIndex = 11;
+            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            // 
+            // textBoxClr
+            // 
+            this.textBoxClr.Location = new System.Drawing.Point(67, 120);
+            this.textBoxClr.Name = "textBoxClr";
+            this.textBoxClr.ReadOnly = true;
+            this.textBoxClr.Size = new System.Drawing.Size(100, 20);
+            this.textBoxClr.TabIndex = 12;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Enabled = false;
+            this.radioButton2.Location = new System.Drawing.Point(148, 97);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(14, 13);
+            this.radioButton2.TabIndex = 13;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 150);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.textBoxClr);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.killGameButton);
             this.Controls.Add(this.radioButton1);
@@ -132,6 +212,7 @@ namespace GTATools
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,6 +224,85 @@ namespace GTATools
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButton1;
+
+        private void ColorLoop()
+        {
+            while (true)
+            {
+                var clr = Utils.GetColorAt(new System.Drawing.Point(x: 90, y: 40));
+                Thread.Sleep(100);
+                textBoxClr.Invoke((Action)delegate
+                {
+                    textBoxClr.Text = clr.ToHex();
+                });
+            }            
+        }
+
+        [STAThread]
+        private async void WheelSpinLoop()
+        {            
+            var mainWheelspinToken = new CancellationTokenSource();
+            CancellationTokenSource curWheelSpin = null;
+            bool state = KeyStates.WheelspinHotkey;
+            while (!mainWheelspinToken.IsCancellationRequested)
+            {
+                bool curState = KeyStates.WheelspinHotkey;
+                if (curState != state) // Key Pressed
+                {                 
+                    if (curState) // If it was just enabled
+                    {
+                        MessageBox.Show("Reee");
+                        curWheelSpin = new CancellationTokenSource();
+                        _ = Task.Run(() => fuck(curWheelSpin.Token), curWheelSpin.Token);
+                    }
+                    else // If it was just disabled
+                    {
+                        curWheelSpin?.Cancel();
+                    }                    
+                }
+                state = curState;
+                await Task.Delay(10);
+            }
+            curWheelSpin?.Dispose();
+            mainWheelspinToken.Dispose();
+        }
+
+        private async Task fuck(CancellationToken token)
+        {
+            radioButton2.Invoke((Action)delegate 
+            {
+                radioButton2.Checked = true;
+            });
+
+            var shit = new InputSimulator();
+            if (!token.IsCancellationRequested)
+            {
+                shit.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.RETURN);
+                await Task.Delay(100);
+                shit.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.RETURN);
+
+                while (Utils.GetColorAt(new System.Drawing.Point(x: 90, y: 40)).ToHex() != "#E5E5E5")
+                {
+                    await Task.Delay(10);
+                    if (token.IsCancellationRequested)
+                    {
+                        radioButton2.Invoke((Action)delegate
+                        {
+                            radioButton2.Checked = false;
+                        });
+                        return;
+                    }
+                }
+                await Task.Delay(Properties.Settings.Default.WheelspinDelay);
+                shit.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_S);
+                await Task.Delay(100);
+                shit.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.VK_S);
+            }
+            radioButton2.Invoke((Action)delegate
+            {
+                radioButton2.Checked = false;
+            });
+        }
 
         private void LagSwitchLoop()
         {
@@ -185,6 +345,11 @@ namespace GTATools
 
         private System.Windows.Forms.Button killGameButton;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxClr;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }
 

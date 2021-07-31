@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace GTATools
@@ -12,7 +13,8 @@ namespace GTATools
         /// </summary>
         [STAThread]
         static void Main()
-        {            
+        {
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-us");
             if (Process.GetProcessesByName("GTA5").FirstOrDefault() == null)
             {
                 MessageBox.Show("GTA must be running to run this Software!");
