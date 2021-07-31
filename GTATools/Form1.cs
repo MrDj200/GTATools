@@ -12,12 +12,11 @@ namespace GTATools
     {
         private readonly Thread _lagThread = null;
         private readonly Thread _colorThread = null;
-        private readonly Task _wheelspinTask = null;
         private readonly FirewallRule fw = null;
         //readonly Process _gtaProc = Process.GetProcessesByName("GTA5").FirstOrDefault();
         private Process temp = null;
         public Process _gtaProc
-        { 
+        {
             get
             {
                 if (temp == null)
@@ -25,10 +24,10 @@ namespace GTATools
                     return Process.GetProcessesByName("GTA5").FirstOrDefault();
                 }
                 return temp;
-            } 
+            }
         }
         public MainForm()
-        {
+        {            
             InitializeComponent();
 
             _lagThread = new Thread(LagSwitchLoop);
@@ -37,7 +36,12 @@ namespace GTATools
             _colorThread = new Thread(ColorLoop);
             _colorThread.Start();
 
-            _wheelspinTask = Task.Factory.StartNew(() => WheelSpinLoop());
+
+            //Task.Factory.StartNew(() => { return; }).ContinueWith(a => WheelSpinLoop(), scheduler); // https://stackoverflow.com/questions/5971686/how-to-create-a-task-tpl-running-a-sta-thread
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            var factory = new TaskFactory(CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskContinuationOptions.None, scheduler);
+            factory.StartNew(() => WheelSpinLoop());
 
             fw = new FirewallRule(_gtaProc.MainModule.FileName);
         }
@@ -103,7 +107,7 @@ namespace GTATools
             {
                 e.Handled = true;
                 label3.Focus();
-                return;                
+                return;
             }
             textBox1.Text = e.KeyCode.ToString();
             label3.Focus();
@@ -114,7 +118,7 @@ namespace GTATools
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.WheelspinDelay = (int) numericUpDown2.Value;
+            Properties.Settings.Default.WheelspinDelay = (int)numericUpDown2.Value;
             Properties.Settings.Default.Save();
         }
     }

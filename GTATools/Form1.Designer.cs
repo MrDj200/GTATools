@@ -251,7 +251,6 @@ namespace GTATools
                 {                 
                     if (curState) // If it was just enabled
                     {
-                        MessageBox.Show("Reee");
                         curWheelSpin = new CancellationTokenSource();
                         _ = Task.Run(() => fuck(curWheelSpin.Token), curWheelSpin.Token);
                     }
@@ -274,12 +273,12 @@ namespace GTATools
                 radioButton2.Checked = true;
             });
 
-            var shit = new InputSimulator();
+            var inputSim = new InputSimulator();
             if (!token.IsCancellationRequested)
             {
-                shit.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.RETURN);
+                inputSim.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.RETURN);
                 await Task.Delay(100);
-                shit.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.RETURN);
+                inputSim.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.RETURN);
 
                 while (Utils.GetColorAt(new System.Drawing.Point(x: 90, y: 40)).ToHex() != "#E5E5E5")
                 {
@@ -294,9 +293,9 @@ namespace GTATools
                     }
                 }
                 await Task.Delay(Properties.Settings.Default.WheelspinDelay);
-                shit.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_S);
+                inputSim.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_S);
                 await Task.Delay(100);
-                shit.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.VK_S);
+                inputSim.Keyboard.KeyUp(WindowsInput.Native.VirtualKeyCode.VK_S);
             }
             radioButton2.Invoke((Action)delegate
             {

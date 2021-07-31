@@ -26,7 +26,6 @@ namespace GTATools
                 var keyCode = (int)Properties.Settings.Default.WheelspinKey; // Fetching the current settings
                 Key converted = KeyInterop.KeyFromVirtualKey(keyCode); // Converting winforms key to keyboard key
                 return Keyboard.IsKeyToggled(converted);
-
                 //return (GetKeyState(keyCode) & 0xffff) != 0;
             }
         }
