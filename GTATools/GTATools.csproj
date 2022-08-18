@@ -90,8 +90,8 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WindowsInput, Version=6.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsInput.6.3.0\lib\net461\WindowsInput.dll</HintPath>
+    <Reference Include="WindowsInput, Version=6.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsInput.6.4.0\lib\net461\WindowsInput.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
