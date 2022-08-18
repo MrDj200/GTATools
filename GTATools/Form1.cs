@@ -33,8 +33,8 @@ namespace GTATools
             _lagThread = new Thread(LagSwitchLoop);
             _lagThread.Start();
 
-            _colorThread = new Thread(ColorLoop);
-            _colorThread.Start();
+            //_colorThread = new Thread(ColorLoop);
+            //_colorThread.Start();
 
 
             //Task.Factory.StartNew(() => { return; }).ContinueWith(a => WheelSpinLoop(), scheduler); // https://stackoverflow.com/questions/5971686/how-to-create-a-task-tpl-running-a-sta-thread

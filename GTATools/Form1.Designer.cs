@@ -48,7 +48,7 @@ namespace GTATools
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBoxClr = new System.Windows.Forms.TextBox();
+            //this.textBoxClr = new System.Windows.Forms.TextBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -170,11 +170,11 @@ namespace GTATools
             // 
             // textBoxClr
             // 
-            this.textBoxClr.Location = new System.Drawing.Point(67, 120);
-            this.textBoxClr.Name = "textBoxClr";
-            this.textBoxClr.ReadOnly = true;
-            this.textBoxClr.Size = new System.Drawing.Size(100, 20);
-            this.textBoxClr.TabIndex = 12;
+            //this.textBoxClr.Location = new System.Drawing.Point(67, 120);
+            //this.textBoxClr.Name = "textBoxClr";
+            //this.textBoxClr.ReadOnly = true;
+            //this.textBoxClr.Size = new System.Drawing.Size(100, 20);
+            //this.textBoxClr.TabIndex = 12;
             // 
             // radioButton2
             // 
@@ -193,7 +193,7 @@ namespace GTATools
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 150);
             this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.textBoxClr);
+            //this.Controls.Add(this.textBoxClr);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numericUpDown2);
@@ -226,18 +226,18 @@ namespace GTATools
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButton1;
 
-        private void ColorLoop()
-        {
-            while (true)
-            {
-                var clr = Utils.GetColorAt(new System.Drawing.Point(x: 90, y: 40));
-                Thread.Sleep(100);
-                textBoxClr.Invoke((Action)delegate
-                {
-                    textBoxClr.Text = clr.ToHex();
-                });
-            }            
-        }
+        //private void ColorLoop()
+        //{
+        //    while (true)
+        //    {
+        //        var clr = Utils.GetColorAt(new System.Drawing.Point(x: 90, y: 40));
+        //        Thread.Sleep(100);
+        //        textBoxClr.Invoke((Action)delegate
+        //        {
+        //            textBoxClr.Text = clr.ToHex();
+        //        });
+        //    }            
+        //}
                 
         private async void WheelSpinLoop()
         {            
@@ -375,7 +375,7 @@ namespace GTATools
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBoxClr;
+        //private System.Windows.Forms.TextBox textBoxClr;
         private System.Windows.Forms.RadioButton radioButton2;
     }
 }
