@@ -39,9 +39,9 @@ namespace GTATools
 
             //Task.Factory.StartNew(() => { return; }).ContinueWith(a => WheelSpinLoop(), scheduler); // https://stackoverflow.com/questions/5971686/how-to-create-a-task-tpl-running-a-sta-thread
 
-            //var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            //var factory = new TaskFactory(CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskContinuationOptions.None, scheduler);
-            //factory.StartNew(() => WheelSpinLoop());
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            var factory = new TaskFactory(CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskContinuationOptions.None, scheduler);
+            factory.StartNew(() => WheelSpinLoop());
 
             fw = new FirewallRule(_gtaProc.MainModule.FileName);
         }
@@ -67,8 +67,8 @@ namespace GTATools
             // Loading from settings
             this.numericUpDown1.Value = Properties.Settings.Default.SuspendTimer;
             this.Location = Properties.Settings.Default.FormLocation;
-            //this.textBox1.Text = Properties.Settings.Default.WheelspinKey.ToString();
-            //this.numericUpDown2.Value = Properties.Settings.Default.WheelspinDelay;
+            this.textBox1.Text = Properties.Settings.Default.WheelspinKey.ToString();
+            this.numericUpDown2.Value = Properties.Settings.Default.WheelspinDelay;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -106,11 +106,11 @@ namespace GTATools
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
-                //label3.Focus();
+                label3.Focus();
                 return;
             }
-            //textBox1.Text = e.KeyCode.ToString();
-            //label3.Focus();
+            textBox1.Text = e.KeyCode.ToString();
+            label3.Focus();
             e.Handled = true;
             Properties.Settings.Default.WheelspinKey = e.KeyCode;
             Properties.Settings.Default.Save();
@@ -118,7 +118,7 @@ namespace GTATools
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            //Properties.Settings.Default.WheelspinDelay = (int)numericUpDown2.Value;
+            Properties.Settings.Default.WheelspinDelay = (int)numericUpDown2.Value;
             Properties.Settings.Default.Save();
         }
     }
