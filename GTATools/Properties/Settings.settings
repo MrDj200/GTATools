@@ -14,5 +14,8 @@
     <Setting Name="WheelspinDelay" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4000</Value>
     </Setting>
+    <Setting Name="KillGameKey" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">End</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

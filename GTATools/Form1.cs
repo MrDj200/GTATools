@@ -42,6 +42,7 @@ namespace GTATools
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             var factory = new TaskFactory(CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskContinuationOptions.None, scheduler);
             factory.StartNew(() => WheelSpinLoop());
+            factory.StartNew(() => KillGameLoop());
 
             fw = new FirewallRule(_gtaProc.MainModule.FileName);
         }

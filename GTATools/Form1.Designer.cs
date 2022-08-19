@@ -238,6 +238,28 @@ namespace GTATools
         //        });
         //    }            
         //}
+
+        private async void KillGameLoop()
+        {
+            var cancelToken = new CancellationTokenSource();
+            CancellationTokenSource curKillGame = null;
+            bool state = KeyStates.KillGameHotkey;
+            while (!cancelToken.IsCancellationRequested)
+            {
+                bool curState = KeyStates.KillGameHotkey;
+                if (curState != state)
+                {
+                    if (curState)
+                    {
+                        KillGame();
+                    }
+                }
+                state = curState;
+                await Task.Delay(10);
+            }
+            cancelToken?.Dispose();
+            curKillGame?.Dispose();
+        }
                 
         private async void WheelSpinLoop()
         {            

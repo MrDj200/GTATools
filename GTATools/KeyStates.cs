@@ -29,5 +29,15 @@ namespace GTATools
                 //return (GetKeyState(keyCode) & 0xffff) != 0;
             }
         }
+
+        public static bool KillGameHotkey
+        {
+            get
+            {
+                var keyCode = (int)Properties.Settings.Default.KillGameKey;
+                Key converted = KeyInterop.KeyFromVirtualKey(keyCode);
+                return Keyboard.IsKeyToggled(converted);
+            }
+        }
     }
 }
