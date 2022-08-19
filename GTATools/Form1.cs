@@ -88,6 +88,11 @@ namespace GTATools
 
         private void killGameButton_Click(object sender, EventArgs e)
         {
+            KillGame();
+        }
+
+        private void KillGame()
+        {
             if (!checkBox1.Checked)
             {
                 DialogResult dialogResult = MessageBox.Show("Do you want to kill the game?", "Are you sure?", MessageBoxButtons.YesNo);
