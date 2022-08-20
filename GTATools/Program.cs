@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -15,11 +13,11 @@ namespace GTATools
         static void Main()
         {
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-us");
-            if (Process.GetProcessesByName("GTA5").FirstOrDefault() == null)
-            {
-                MessageBox.Show("GTA must be running to run this Software!");
-                return;
-            }
+            //if (Process.GetProcessesByName("GTA5").FirstOrDefault() == null)
+            //{
+            //    MessageBox.Show("GTA must be running to run this Software!");
+            //    return;
+            //}
             if (!Utils.IsAdministrator())
             {
                 Utils.MakeAdmin();

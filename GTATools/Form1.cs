@@ -12,7 +12,7 @@ namespace GTATools
     {
         private readonly Thread _lagThread = null;
         private readonly Thread _colorThread = null;
-        private readonly FirewallRule fw = null;
+        private FirewallRule fw = null;
         //readonly Process _gtaProc = Process.GetProcessesByName("GTA5").FirstOrDefault();
         private Process temp = null;
         public Process _gtaProc
@@ -27,11 +27,12 @@ namespace GTATools
             }
         }
         public MainForm()
-        {            
+        {
             InitializeComponent();
 
-            _lagThread = new Thread(LagSwitchLoop);
-            _lagThread.Start();
+
+            //_lagThread = new Thread(LagSwitchLoop);
+            //_lagThread.Start();
 
             //_colorThread = new Thread(ColorLoop);
             //_colorThread.Start();
@@ -43,8 +44,18 @@ namespace GTATools
             var factory = new TaskFactory(CancellationToken.None, TaskCreationOptions.DenyChildAttach, TaskContinuationOptions.None, scheduler);
             factory.StartNew(() => WheelSpinLoop());
             factory.StartNew(() => KillGameLoop());
-
-            fw = new FirewallRule(_gtaProc.MainModule.FileName);
+            Task.Run(async () =>
+            {
+                while (_gtaProc == null)
+                {
+                    await Task.Delay(5000);
+                }
+                lock (fw)
+                {
+                    fw = new FirewallRule(_gtaProc.MainModule.FileName);
+                }
+                LagSwitchLoop();
+            });
         }
 
         private void SuspendButton_Click(object sender, System.EventArgs e)

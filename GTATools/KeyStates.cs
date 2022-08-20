@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -18,7 +17,7 @@ namespace GTATools
                 return (GetKeyState((int)Keys.Scroll) & 0xffff) != 0;
             }
         }
-        
+
         public static bool WheelspinHotkey
         {
             get
