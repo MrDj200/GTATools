@@ -10,7 +10,7 @@ namespace GTATools
 {
     public partial class MainForm : Form
     {
-        private readonly Thread _lagThread = null;
+        private Thread _lagThread = null;
         private readonly Thread _colorThread = null;
         private FirewallRule fw = null;
         //readonly Process _gtaProc = Process.GetProcessesByName("GTA5").FirstOrDefault();
@@ -50,11 +50,9 @@ namespace GTATools
                 {
                     await Task.Delay(5000);
                 }
-                lock (fw)
-                {
-                    fw = new FirewallRule(_gtaProc.MainModule.FileName);
-                }
-                LagSwitchLoop();
+                fw = new FirewallRule(_gtaProc.MainModule.FileName);
+                _lagThread = new Thread(LagSwitchLoop);
+                _lagThread.Start();
             });
         }
 
