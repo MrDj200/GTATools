@@ -148,6 +148,8 @@ namespace GTATools
             info.AppendLine("Go to Singleplayer mode and only switch the lagswitch off AFTER you are in Singleplayer!");
             info.AppendLine("Quick way to go to SP: Hold ALT and swap to one of the offline characters");
             info.AppendLine("Only the host is required to do this!");
+            info.AppendLine("");
+            info.AppendLine($"To kill the game press \"{Properties.Settings.Default.KillGameKey}\". Check the checkbox to make it happen instantly on press");
 
             MessageBox.Show(info.ToString(), "How to money?", MessageBoxButtons.OK, MessageBoxIcon.Information);
             e.Cancel = true; // Cancelling the question mark. Can't be arsed
