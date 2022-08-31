@@ -48,7 +48,6 @@ namespace GTATools
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            //this.textBoxClr = new System.Windows.Forms.TextBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -168,14 +167,6 @@ namespace GTATools
             this.textBox1.TabIndex = 11;
             this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
-            // textBoxClr
-            // 
-            //this.textBoxClr.Location = new System.Drawing.Point(67, 120);
-            //this.textBoxClr.Name = "textBoxClr";
-            //this.textBoxClr.ReadOnly = true;
-            //this.textBoxClr.Size = new System.Drawing.Size(100, 20);
-            //this.textBoxClr.TabIndex = 12;
-            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
@@ -193,7 +184,6 @@ namespace GTATools
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 150);
             this.Controls.Add(this.radioButton2);
-            //this.Controls.Add(this.textBoxClr);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numericUpDown2);
