@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -135,6 +136,21 @@ namespace GTATools
         {
             Properties.Settings.Default.WheelspinDelay = (int)numericUpDown2.Value;
             Properties.Settings.Default.Save();
+        }
+
+        StringBuilder info = new StringBuilder();
+
+        private void MainForm_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            info.Clear();
+            info.AppendLine("Press the lagswitch button (scroll lock) when the screen fades to yellow in the cayo outro scene (right after your character handed over the money)");
+            info.AppendLine("KEEP IT ENABLED!");
+            info.AppendLine("Go to Singleplayer mode and only switch the lagswitch off AFTER you are in Singleplayer!");
+            info.AppendLine("Quick way to go to SP: Hold ALT and swap to one of the offline characters");
+            info.AppendLine("Only the host is required to do this!");
+
+            MessageBox.Show(info.ToString(), "How to money?", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            e.Cancel = true; // Cancelling the question mark. Can't be arsed
         }
     }
 }
